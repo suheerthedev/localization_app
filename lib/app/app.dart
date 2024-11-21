@@ -4,6 +4,7 @@ import 'package:localization_app/ui/views/home/home_view.dart';
 import 'package:localization_app/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:localization_app/services/localization_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -16,7 +17,8 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    // @stacked-service
+    LazySingleton(classType: LocalizationService),
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),

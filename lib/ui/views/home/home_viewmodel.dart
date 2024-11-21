@@ -1,36 +1,19 @@
-import 'package:localization_app/app/app.bottomsheets.dart';
-import 'package:localization_app/app/app.dialogs.dart';
-import 'package:localization_app/app/app.locator.dart';
-import 'package:localization_app/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import 'package:localization_app/services/localization_service.dart';
+import 'package:localization_app/app/app.locator.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final LocalizationService _localizationService = locator<LocalizationService>();
 
-  String get counterLabel => 'Counter is: $_counter';
+  String get title => _localizationService.translate("title");
+  String get message => _localizationService.translate("message");
+  String get switchLanguageLabel => _localizationService.translate("switch_language");
+  String get aboutUs => _localizationService.translate("about_us");
 
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  Future<void> switchLanguage() async {
+    _localizationService.switchLanguage();
+    notifyListeners();
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
-  }
-
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
-  }
+  LocalizationService get localizationService => _localizationService;
 }
